@@ -1,0 +1,1481 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "title": "FisAppMessage",
+    "type": "object",
+    "properties": {
+        "header": {
+            "$ref": "#/definitions/MessageHeader"
+        },
+        "data": {}
+    },
+    "required": [
+        "header",
+        "data"
+    ],
+    "additionalProperties": false,
+    "definitions": {
+        "Message": {
+            "description": "Payload data has the actual message sent by producer.\n@property header - Common information for all messages. Usually used by the Controller to direct message to an appropriate handler (or service).\n@property data - Data.",
+            "type": "object",
+            "properties": {
+                "header": {
+                    "$ref": "#/definitions/MessageHeader"
+                },
+                "data": {}
+            },
+            "required": [
+                "header",
+                "data"
+            ],
+            "additionalProperties": false
+        },
+        "BaseMessage": {
+            "title": "BaseMessage",
+            "type": "object",
+            "properties": {
+                "header": {
+                    "$ref": "#/definitions/MessageHeader"
+                },
+                "data": {}
+            },
+            "required": [
+                "header",
+                "data"
+            ],
+            "additionalProperties": false
+        },
+        "RequestMessage": {
+            "title": "RequestMessage",
+            "type": "object",
+            "properties": {
+                "header": {
+                    "$ref": "#/definitions/RequestHeader"
+                },
+                "data": {}
+            },
+            "required": [
+                "header",
+                "data"
+            ],
+            "additionalProperties": false
+        },
+        "ResponseMessage": {
+            "title": "ResponseMessage",
+            "type": "object",
+            "properties": {
+                "header": {
+                    "$ref": "#/definitions/ResponseHeader"
+                },
+                "data": {}
+            },
+            "required": [
+                "header",
+                "data"
+            ],
+            "additionalProperties": false
+        },
+        "NotificationMessage": {
+            "title": "NotificationMessage",
+            "type": "object",
+            "properties": {
+                "header": {
+                    "$ref": "#/definitions/NotificationHeader"
+                },
+                "data": {}
+            },
+            "required": [
+                "header",
+                "data"
+            ],
+            "additionalProperties": false
+        },
+        "CommandMessage": {
+            "title": "CommandMessage",
+            "type": "object",
+            "properties": {
+                "header": {
+                    "$ref": "#/definitions/CommandHeader"
+                },
+                "data": {}
+            },
+            "required": [
+                "header",
+                "data"
+            ],
+            "additionalProperties": false
+        },
+        "QueryMessage": {
+            "title": "QueryMessage",
+            "type": "object",
+            "properties": {
+                "header": {
+                    "$ref": "#/definitions/QueryHeader"
+                },
+                "data": {}
+            },
+            "required": [
+                "header",
+                "data"
+            ],
+            "additionalProperties": false
+        },
+        "SubscriptionMessage": {
+            "title": "SubscriptionMessage",
+            "type": "object",
+            "properties": {
+                "header": {
+                    "$ref": "#/definitions/SubscriptionHeader"
+                },
+                "data": {}
+            },
+            "required": [
+                "header",
+                "data"
+            ],
+            "additionalProperties": false
+        },
+        "ResponseDataMessage": {
+            "description": "Data returned from successful request operation",
+            "$comment": "To define standard response data format if necessary",
+            "type": "object",
+            "properties": {
+                "header": {
+                    "$ref": "#/definitions/ResponseHeader"
+                },
+                "data": {}
+            },
+            "required": [
+                "header",
+                "data"
+            ],
+            "additionalProperties": false
+        },
+        "ResponseSummaryMessage": {
+            "description": "Summary information or description for the response messages",
+            "$comment": "To define standard response data format if necessary",
+            "type": "object",
+            "properties": {
+                "header": {
+                    "$ref": "#/definitions/ResponseHeader"
+                },
+                "data": {}
+            },
+            "required": [
+                "header",
+                "data"
+            ],
+            "additionalProperties": false
+        },
+        "ResponseStatusMessage": {
+            "description": "Data returned from successful request operation",
+            "$comment": "To define standard response data format if necessary",
+            "type": "object",
+            "properties": {
+                "header": {
+                    "$ref": "#/definitions/ResponseStatusHeader"
+                },
+                "data": {}
+            },
+            "required": [
+                "header",
+                "data"
+            ],
+            "additionalProperties": false
+        },
+        "ResponseExceptionMessage": {
+            "type": "object",
+            "properties": {
+                "header": {
+                    "$ref": "#/definitions/ResponseExceptionHeader"
+                },
+                "data": {}
+            },
+            "required": [
+                "header",
+                "data"
+            ],
+            "additionalProperties": false
+        },
+        "MicroserviceNotificationMessage": {
+            "type": "object",
+            "properties": {
+                "header": {
+                    "$ref": "#/definitions/MicroserviceNotifcationHeader"
+                },
+                "data": {
+                    "$ref": "#/definitions/Message"
+                }
+            },
+            "required": [
+                "header",
+                "data"
+            ],
+            "additionalProperties": false
+        },
+        "MessageHeader": {
+            "description": "Common information for all messages. Usually used by the Controller to direct message to an appropriate handler (or service).",
+            "type": "object",
+            "properties": {
+                "messageType": {
+                    "$ref": "#/definitions/MessageType"
+                },
+                "messageID": {
+                    "description": "Unique identifier of every message.\nEvery message has a internally unique identifier within FisApp environment. \nThis value is generated at the originator of the message and which in most cases is the message factory",
+                    "type": "string"
+                },
+                "messageName": {
+                    "description": "Short description of this message. Value can be auto populated by factory.",
+                    "type": "string"
+                },
+                "dateCreated": {
+                    "description": "The date time that the message was created by the factory",
+                    "$comment": "Decorator @",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "isAggregate": {
+                    "description": "Whether the message data is an aggregate of messages.If true then the aggregate messages are contained in the MessageData section as array of messages.",
+                    "$comment": "This feature is not to  be implemented unless required. ",
+                    "type": "boolean",
+                    "default": false
+                },
+                "messageProducerInformation": {
+                    "$ref": "#/definitions/MessageProducerInformation"
+                },
+                "security": {
+                    "$ref": "#/definitions/MessageSecurity"
+                },
+                "messageDataLocation": {
+                    "$ref": "#/definitions/MessageDataLocation"
+                },
+                "messageDataFormat": {
+                    "$ref": "#/definitions/MessageFormat"
+                },
+                "requesterId": {
+                    "description": "Requester Id that sends the message and used to identify an Fis application in Fis Back office server. If requesterId is not provided, it would use ucpId as requesterId.",
+                    "type": "string"
+                },
+                "instanceId": {
+                    "description": "A FisApp generated reference ID to an instantiated service in Fis Back office server. Can be null if not applicable.",
+                    "type": "string"
+                },
+                "userId": {
+                    "type": "string"
+                },
+                "serviceId": {
+                    "description": "FIS service to invoke(mandatory).",
+                    "type": "string"
+                },
+                "dataSourceTiming": {
+                    "description": "Data source timing. i.e. EDIT(get data from editing cache).",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "messageType",
+                "messageID",
+                "messageName",
+                "dateCreated",
+                "isAggregate",
+                "messageProducerInformation",
+                "security"
+            ],
+            "additionalProperties": true
+        },
+        "MessageSecurity": {
+            "description": "Authentication and authorization information",
+            "type": "object",
+            "properties": {
+                "socialNetworkLoginID": {
+                    "description": "Social network user id that user log on. can be null and in which case user did not use social network user id to log in but instead directly log on using FisApp user id. Note that a client can be a daemon process and in which case it also has a log in id. ",
+                    "type": "string",
+                    "format": "email"
+                },
+                "ucpId": {
+                    "description": "user application session client proxy. can be null if user has not log in",
+                    "type": "string"
+                },
+                "socialNetworkUserName": {
+                    "description": "name of social network user",
+                    "type": "string"
+                },
+                "applicationLogInID": {
+                    "description": "FIS User ID. ",
+                    "type": "string"
+                },
+                "applicationUserName": {
+                    "description": "name of application user",
+                    "type": "string"
+                }
+            },
+            "additionalProperties": false
+        },
+        "RequestMessageHeader": {
+            "description": "A Request can be a Command or a Query. Abstract definition and can not existing by itself. Name of request only appear at concrete type.",
+            "type": "object",
+            "properties": {
+                "responseRequirement": {
+                    "$ref": "#/definitions/ResponseRequirement"
+                },
+                "resquestTimeOut": {
+                    "description": "If not completed within stipulated time (since message created), then cancel request. Time out in milli seconds. 0-no time out.",
+                    "type": "number",
+                    "minimum": 0,
+                    "default": 0
+                },
+                "requestExecutionMode": {
+                    "description": "To execute after a specified certain time (since message created), 0 as immediate, -1 as batch que",
+                    "type": "integer",
+                    "minimum": 0,
+                    "default": 0
+                }
+            },
+            "required": [
+                "resquestTimeOut",
+                "requestExecutionMode"
+            ],
+            "additionalProperties": false
+        },
+        "RequestHeader": {
+            "description": "A Request can be a Command or a Query. Abstract definition and can not existing by itself. Name of request only appear at concrete type.",
+            "allOf": [
+                {
+                    "$ref": "#/definitions/MessageHeader"
+                },
+                {
+                    "$ref": "#/definitions/RequestMessageHeader"
+                }
+            ]
+        },
+        "CommandMessageHeader": {
+            "description": "A Request can be a Command. Abstract definition and can not existing by itself. Name of request only appear at concrete type.",
+            "type": "object",
+            "properties": {
+                "command": {
+                    "$ref": "#/definitions/CommandEnum"
+                }
+            },
+            "required": [
+                "command"
+            ],
+            "additionalProperties": false
+        },
+        "CommandHeader": {
+            "description": "A Request can be a Command. Abstract definition and can not existing by itself. Name of request only appear at concrete type.",
+            "allOf": [
+                {
+                    "$ref": "#/definitions/RequestHeader"
+                },
+                {
+                    "$ref": "#/definitions/CommandMessageHeader"
+                }
+            ]
+        },
+        "QueryMessageHeader": {
+            "description": "A Request can be a Query. Abstract definition and can not existing by itself. Name of request only appear at concrete type.",
+            "type": "object",
+            "properties": {
+                "query": {
+                    "$ref": "#/definitions/QueryEnum"
+                }
+            },
+            "required": [
+                "query"
+            ],
+            "additionalProperties": false
+        },
+        "QueryHeader": {
+            "description": "A Request can be a Query. Abstract definition and can not existing by itself. Name of request only appear at concrete type.",
+            "allOf": [
+                {
+                    "$ref": "#/definitions/RequestHeader"
+                },
+                {
+                    "$ref": "#/definitions/QueryMessageHeader"
+                }
+            ]
+        },
+        "SubscriptionMessageHeader": {
+            "description": "Request to subscribe notifications (or events). Note that notification can be emitted from UI, Business Domain, Databases and other application tiers. Regardless, the notification and subscription each has format used consistently across all application tiers. What events to subscribes are provided in the message data section.",
+            "type": "object",
+            "properties": {
+                "subscription": {
+                    "$ref": "#/definitions/SubscriptionEnum"
+                },
+                "startSubscribingDateTime": {
+                    "description": "effect date time when to start subscribing. Default is right now.",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "endSubscribingDateTime": {
+                    "description": "effect date time when to end subscribing. Default is year 2999 which means forever.",
+                    "type": "string",
+                    "format": "date-time"
+                }
+            },
+            "required": [
+                "subscription"
+            ],
+            "additionalProperties": false
+        },
+        "SubscriptionHeader": {
+            "description": "Request to subscribe notifications (or events). Note that notification can be emitted from UI, Business Domain, Databases and other application tiers. Regardless, the notification and subscription each has format used consistently across all application tiers. What events to subscribes are provided in the message data section.",
+            "allOf": [
+                {
+                    "$ref": "#/definitions/RequestHeader"
+                },
+                {
+                    "$ref": "#/definitions/SubscriptionMessageHeader"
+                }
+            ]
+        },
+        "ResponseMessageHeader": {
+            "type": "object",
+            "properties": {
+                "requestMessageRespondTo": {
+                    "$ref": "#/definitions/RequestMessage"
+                }
+            },
+            "required": [
+                "requestMessageRespondTo"
+            ],
+            "additionalProperties": false
+        },
+        "ResponseHeader": {
+            "allOf": [
+                {
+                    "$ref": "#/definitions/MessageHeader"
+                },
+                {
+                    "$ref": "#/definitions/ResponseMessageHeader"
+                }
+            ]
+        },
+        "ResponseStatusMessageHeader": {
+            "type": "object",
+            "properties": {
+                "responseStatus": {
+                    "$ref": "#/definitions/ResponseStatusEnum"
+                }
+            },
+            "required": [
+                "responseStatus"
+            ],
+            "additionalProperties": false
+        },
+        "ResponseStatusHeader": {
+            "allOf": [
+                {
+                    "$ref": "#/definitions/ResponseHeader"
+                },
+                {
+                    "$ref": "#/definitions/ResponseStatusMessageHeader"
+                }
+            ]
+        },
+        "ResponseExceptionMessageHeader": {
+            "type": "object",
+            "properties": {
+                "exception": {
+                    "$ref": "#/definitions/Exception"
+                }
+            },
+            "required": [
+                "responseException",
+                "exception"
+            ],
+            "additionalProperties": false
+        },
+        "ResponseExceptionHeader": {
+            "allOf": [
+                {
+                    "$ref": "#/definitions/ResponseHeader"
+                },
+                {
+                    "$ref": "#/definitions/ResponseStatusHeader"
+                },
+                {
+                    "$ref": "#/definitions/ResponseExceptionMessageHeader"
+                }
+            ]
+        },
+        "NotificationMessageHeader": {
+            "description": "Base notification message Header. Notification is at time named as event. ",
+            "type": "object",
+            "properties": {
+                "notificationType": {
+                    "$ref": "#/definitions/NotificationTypeEnum"
+                },
+                "notificationNature": {
+                    "$ref": "#/definitions/NotificationNatureEnum"
+                }
+            },
+            "required": [
+                "notificationType",
+                "notificationNature"
+            ],
+            "additionalProperties": false
+        },
+        "NotificationHeader": {
+            "description": "Base notification message Header. Notification is at time named as event. ",
+            "allOf": [
+                {
+                    "$ref": "#/definitions/MessageHeader"
+                },
+                {
+                    "$ref": "#/definitions/NotificationMessageHeader"
+                }
+            ]
+        },
+        "MicroserviceNotificationMessageHeader": {
+            "description": "All messages sent over microservice is in fisapp context considered as Notification messages",
+            "type": "object",
+            "properties": {
+                "microserviceTopic": {
+                    "$ref": "#/definitions/MicroserviceTopic"
+                }
+            },
+            "required": [
+                "microserviceTopic"
+            ],
+            "additionalProperties": false
+        },
+        "MicroserviceNotifcationHeader": {
+            "description": "All messages sent over microservice is in fisapp context considered as Notification messages",
+            "allOf": [
+                {
+                    "$ref": "#/definitions/NotificationHeader"
+                },
+                {
+                    "$ref": "#/definitions/MicroserviceNotificationMessageHeader"
+                }
+            ]
+        },
+        "NotifcationExceptionHeader": {
+            "description": "All messages sent over microservice is in fisapp context considered as Notification messages",
+            "allOf": [
+                {
+                    "$ref": "#/definitions/MessageHeader"
+                },
+                {
+                    "$ref": "#/definitions/NotificationHeader"
+                },
+                {
+                    "$ref": "#/definitions/NotificationExceptionMessageHeader"
+                }
+            ]
+        },
+        "NotificationExceptionMessageHeader": {
+            "description": "All messages sent over microservice is in fisapp context considered as Notification messages",
+            "type": "object",
+            "properties": {
+                "exception": {
+                    "$ref": "#/definitions/Exception"
+                }
+            },
+            "required": [
+                "exception"
+            ],
+            "additionalProperties": false
+        },
+        "UserApplication": {
+            "title": "UserApplication",
+            "description": "Applications as login by user. Is a logical application with a  collection of programs to perform some related business functions. It referrrs to one or more back office applications under the User-BackOffice relationship entity. Example, FisPayment, PlantationFiledApp, FisSalesForce.",
+            "type": "object",
+            "properties": {
+                "userAppId": {
+                    "type": "string"
+                },
+                "userAppName": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "userAppId",
+                "userAppName"
+            ],
+            "additionalProperties": false
+        },
+        "BackOfficeApplication": {
+            "title": "BackOfficeApplication",
+            "description": "Various ERP system running on the server side. Example FisBackOffice, FisEcommerce etc",
+            "type": "object",
+            "properties": {
+                "backOfficeAppId": {
+                    "type": "string"
+                },
+                "backOfficeAppName": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "backOfficeAppId",
+                "backOfficeAppName"
+            ]
+        },
+        "MessageDeliveryMode": {
+            "description": "Compositable definition. How message is to be delivered. Usually though not mendatory is as requested by client. If not specidied then leave to default transport handler. Applicable more for a requesting client message to specify how response messages should be delivered back.",
+            "$comment": "This section to be expanded and implemented at a later stage",
+            "type": "object",
+            "properties": {
+                "timing": {
+                    "title": "Timing",
+                    "description": "Interactive message exchange or batch delayed. Interactive reponse is immediate by individually message continuous streaming. Batched messages are collected for one delivery. ",
+                    "type": "string",
+                    "tsEnumNames": [
+                        "Interactive",
+                        "Batch"
+                    ],
+                    "enum": [
+                        "Interactive",
+                        "Batch"
+                    ],
+                    "default": "Interactive"
+                },
+                "channelId": {
+                    "description": "Identifier for a particular transport channel to use. ",
+                    "$comment": "Set aside for later enhancement",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "timing"
+            ],
+            "additionalProperties": false
+        },
+        "MessageDataLocation": {
+            "title": "ExternalMessageLocation",
+            "description": "Compositable definition. Can be included in message header or message data. For non-embaded data, specific location where data can be read. Applicatiion for all message action type.",
+            "type": "object",
+            "properties": {
+                "isEmbaded": {
+                    "type": "boolean",
+                    "default": true
+                },
+                "url": {
+                    "type": "string",
+                    "format": "uri"
+                },
+                "accessId": {
+                    "type": "string"
+                },
+                "accessPassword": {
+                    "type": "string"
+                },
+                "fileName": {
+                    "type": "string"
+                },
+                "remoteInstanceId": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "isEmbaded"
+            ],
+            "additionalProperties": false
+        },
+        "MessageFormat": {
+            "title": "MessageFormat",
+            "description": "Compositable definition. Data message format details which is required in different types of messages. Format can be used (1) defining message when establishing commuincation protocal  (2) defining message data section (3) defining a field in the message data section",
+            "type": "object",
+            "properties": {
+                "dataFormat": {
+                    "title": "DataFormat",
+                    "description": "Applicable for report query.",
+                    "type": "string",
+                    "tsEnumNames": [
+                        "Json",
+                        "Xml",
+                        "Blob",
+                        "Dtf"
+                    ],
+                    "enum": [
+                        "Json",
+                        "Xml",
+                        "Blob",
+                        "Dtf"
+                    ],
+                    "default": "Json"
+                },
+                "fileFormat": {
+                    "title": "FileFormat",
+                    "description": "File type in which the message is kept. Usually correcspond to the file extension",
+                    "type": "string",
+                    "tsEnumNames": [
+                        "Pdf",
+                        "Text",
+                        "Html",
+                        "PrintFile"
+                    ],
+                    "enum": [
+                        "Pdf",
+                        "Text",
+                        "Html",
+                        "PrintFile"
+                    ]
+                },
+                "schemaType": {
+                    "title": "SchemaType",
+                    "description": "The data schema type. ",
+                    "type": "string",
+                    "tsEnumNames": [
+                        "FisFieldValue",
+                        "FisMetadata",
+                        "GraphQL",
+                        "JsonSchema",
+                        "Soap",
+                        "Wsdl"
+                    ],
+                    "enum": [
+                        "FisFieldValue",
+                        "FisMetadata",
+                        "GraphQL",
+                        "JsonSchema",
+                        "Soap",
+                        "Wsdl"
+                    ],
+                    "default": "JsonSchema"
+                },
+                "schema": {
+                    "title": "Schema",
+                    "description": "More information on the data schema type. ",
+                    "type": "object",
+                    "properties": {
+                        "name": {
+                            "type": "string"
+                        }
+                    },
+                    "additionalProperties": false
+                },
+                "mediaType": {
+                    "title": "MediaType",
+                    "$comment": "Need to review this part in order to comply to standard naming",
+                    "type": "string",
+                    "tsEnumNames": [
+                        "Audio",
+                        "Video",
+                        "Image",
+                        "Text"
+                    ],
+                    "enum": [
+                        "Audio",
+                        "Video",
+                        "Image",
+                        "Text"
+                    ],
+                    "default": "Text"
+                }
+            },
+            "required": [
+                "dataFormat"
+            ],
+            "additionalProperties": false
+        },
+        "MessageFilter": {
+            "description": "Message filter is based on GraphQl query schema concept. Message object with sfield values are the condition filter.",
+            "type": "object",
+            "properties": {
+                "MessageFilterCondition": {
+                    "$ref": "#/definitions/Message"
+                }
+            },
+            "additionalProperties": false
+        },
+        "MessageProducerInformationBase": {
+            "description": "Location of source program that generated this message",
+            "type": "object",
+            "properties": {
+                "programID": {
+                    "type": "string"
+                },
+                "programName": {
+                    "type": "string"
+                },
+                "messageFactoryType": {
+                    "$ref": "#/definitions/FactoryTypeEnum"
+                },
+                "appArchitectureTiers": {
+                    "$ref": "#/definitions/AppArchitectureTiersEnum"
+                },
+                "userApplication": {
+                    "$ref": "#/definitions/UserApplication"
+                }
+            },
+            "required": [
+                "userApplication"
+            ],
+            "additionalProperties": false
+        },
+        "MessageProducerInformation": {
+            "description": "Origin location ( as in app architeture components) where this message is created. Note that as message is passed to a component, a new message may be created to wrap around the first message.",
+            "oneOf": [
+                {
+                    "$ref": "#/definitions/ProducerInformationUi"
+                },
+                {
+                    "$ref": "#/definitions/ProducerInformationAppServer"
+                },
+                {
+                    "$ref": "#/definitions/ProducerInformationSystemServer"
+                }
+            ]
+        },
+        "ProducerInformationUi": {
+            "title": "ProducerInformationUi",
+            "description": "Producer information is UI.",
+            "type": "object",
+            "properties": {
+                "origin": {
+                    "$ref": "#/definitions/MessageProducerInformationBase"
+                },
+                "components": {
+                    "$ref": "#/definitions/UserInterfaceComponentTypesEnum"
+                }
+            },
+            "required": [
+                "origin",
+                "components"
+            ],
+            "additionalProperties": false
+        },
+        "ProducerInformationAppServer": {
+            "title": "ProducerInformationAppServer",
+            "description": "Producer information is App Server.",
+            "type": "object",
+            "properties": {
+                "origin": {
+                    "$ref": "#/definitions/MessageProducerInformationBase"
+                },
+                "components": {
+                    "$ref": "#/definitions/FisAppServerComponentsEnum"
+                }
+            },
+            "required": [
+                "origin",
+                "components"
+            ],
+            "additionalProperties": false
+        },
+        "ProducerInformationSystemServer": {
+            "title": "ProducerInformationSystemServer",
+            "description": "Producer information is System Server.",
+            "type": "object",
+            "properties": {
+                "origin": {
+                    "$ref": "#/definitions/MessageProducerInformationBase"
+                },
+                "components": {
+                    "$ref": "#/definitions/SystemServersEnum"
+                }
+            },
+            "required": [
+                "origin",
+                "components"
+            ],
+            "additionalProperties": false
+        },
+        "MicroserviceTopic": {
+            "description": "Similar in usage to Kafka topic. This literal object is used in NestJS microservice client cp header",
+            "type": "object",
+            "properties": {
+                "topicId": {
+                    "type": "string"
+                },
+                "topicCode": {
+                    "type": "string"
+                },
+                "topicName": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "topicId",
+                "topicCode",
+                "topicName"
+            ],
+            "additionalProperties": false
+        },
+        "ResponseRequirement": {
+            "description": "Client that request defines what sort of response expected.",
+            "type": "object",
+            "properties": {
+                "responseDeliveryMode": {
+                    "$ref": "#/definitions/MessageDeliveryMode"
+                },
+                "responseDataFormat": {
+                    "$ref": "#/definitions/MessageFormat"
+                },
+                "externalResponseLocation": {
+                    "$ref": "#/definitions/MessageDataLocation"
+                }
+            },
+            "required": [],
+            "additionalProperties": false
+        },
+        "Exception": {
+            "description": "Common exception information",
+            "type": "object",
+            "properties": {
+                "exceptionType": {
+                    "$ref": "#/definitions/ExceptionEnum"
+                },
+                "exceptionMessage": {
+                    "type": "string"
+                }
+            },
+            "required": [],
+            "additionalProperties": false
+        },
+        "TypeOfMessage": {
+            "title": "TypeOfMessage",
+            "description": "Type of message.",
+            "type": "string",
+            "tsEnumNames": [
+                "Message",
+                "RequestMessage",
+                "CommandMessage",
+                "QueryMessage",
+                "SubscriptionMessage",
+                "ResponseMessage",
+                "ResponseDataMessage",
+                "ResponseStatusMessage",
+                "ResponseSummaryMessage",
+                "ResponseExceptionMessage",
+                "NotificationMessage",
+                "MicroserviceNotificationMessage",
+                "NotificationExceptionMessage"
+            ],
+            "enum": [
+                "Message",
+                "RequestMessage",
+                "CommandMessage",
+                "QueryMessage",
+                "SubscriptionMessage",
+                "ResponseMessage",
+                "ResponseDataMessage",
+                "ResponseStatusMessage",
+                "ResponseSummaryMessage",
+                "ResponseExceptionMessage",
+                "NotificationMessage",
+                "MicroserviceNotificationMessage",
+                "NotificationExceptionMessage"
+            ]
+        },
+        "MessageType": {
+            "description": "Message type. To identify different types of message.",
+            "oneOf": [
+                {
+                    "$ref": "#/definitions/AppMessageType"
+                }
+            ]
+        },
+        "AppMessageType": {
+            "title": "AppMessageType",
+            "description": "App message type. To identify different types of app base message.",
+            "type": "string",
+            "tsEnumNames": [
+                "Base",
+                "Request",
+                "Command",
+                "Query",
+                "Subscription",
+                "Response",
+                "ResponseData",
+                "ResponseStatus",
+                "ResponseSummary",
+                "ResponseException",
+                "Notification",
+                "MicroserviceNotification",
+                "NotificationException"
+            ],
+            "enum": [
+                "Base",
+                "Request",
+                "Command",
+                "Query",
+                "Subscription",
+                "Response",
+                "ResponseData",
+                "ResponseStatus",
+                "ResponseSummary",
+                "ResponseException",
+                "Notification",
+                "MicroserviceNotification",
+                "NotificationException"
+            ]
+        },
+        "CommandEnum": {
+            "title": "Command",
+            "description": "List of commands",
+            "type": "string",
+            "tsEnumNames": [
+                "Start",
+                "Login",
+                "Stop",
+                "Logout",
+                "New",
+                "Update",
+                "Delete",
+                "SetFieldValue",
+                "Save",
+                "Cancel",
+                "Commit",
+                "Retrieve",
+                "Modify",
+                "SetColumn",
+                "ItemChanged",
+                "SetItem",
+                "CancelChanges",
+                "Distribute",
+                "Post",
+                "AppendRow",
+                "InsertRow",
+                "DeleteRow",
+                "Execute"
+            ],
+            "enum": [
+                "Start",
+                "Login",
+                "Stop",
+                "Logout",
+                "New",
+                "Update",
+                "Delete",
+                "SetFieldValue",
+                "Save",
+                "Cancel",
+                "Commit",
+                "Retrieve",
+                "Modify",
+                "SetColumn",
+                "ItemChanged",
+                "SetItem",
+                "CancelChanges",
+                "Distribute",
+                "Post",
+                "AppendRow",
+                "InsertRow",
+                "DeleteRow",
+                "Execute"
+            ]
+        },
+        "QueryEnum": {
+            "title": "Query",
+            "description": "Query request.",
+            "type": "string",
+            "tsEnumNames": [
+                "General",
+                "GetMetadata",
+                "Count",
+                "Retrieve",
+                "GetData",
+                "GetColumn",
+                "GetAliases",
+                "GetColumnNames",
+                "GetEditStatus",
+                "RowCount"
+            ],
+            "enum": [
+                "General",
+                "GetMetadata",
+                "Count",
+                "Retrieve",
+                "GetData",
+                "GetColumn",
+                "GetAliases",
+                "GetColumnNames",
+                "GetEditStatus",
+                "RowCount"
+            ]
+        },
+        "SubscriptionEnum": {
+            "title": "Subscription",
+            "description": "Request to subscribe messages",
+            "type": "string",
+            "tsEnumNames": [
+                "General"
+            ],
+            "enum": [
+                "General"
+            ]
+        },
+        "ResponseStatusEnum": {
+            "title": "ResponseStatus",
+            "description": "Response on status of request performance.",
+            "type": "string",
+            "tsEnumNames": [
+                "AcknowledgeReceived",
+                "PendingExecution",
+                "ExecutionInProgress",
+                "ExecutiionCompletePercentage",
+                "ExecutionCompleted",
+                "ExecutionException"
+            ],
+            "enum": [
+                "AcknowledgeReceived",
+                "PendingExecution",
+                "ExecutionInProgress",
+                "ExecutiionCompletePercentage",
+                "ExecutionCompleted",
+                "ExecutionException"
+            ]
+        },
+        "ExceptionEnum": {
+            "title": "ExceptionType",
+            "description": "Response exception types",
+            "type": "string",
+            "tsEnumNames": [
+                "ValidationFailed",
+                "InvalidRequest",
+                "UnauthorisedRequest",
+                "InvalidNotification",
+                "UnauthorisedNotification",
+                "ServerUnavailable"
+            ],
+            "enum": [
+                "ValidationFailed",
+                "InvalidRequest",
+                "UnauthorisedRequest",
+                "InvalidNotification",
+                "UnauthorisedNotification",
+                "ServerUnavailable"
+            ]
+        },
+        "AppArchitectureTiersEnum": {
+            "title": "AppArchitectureTiers",
+            "description": "Highligh level app architecture levels",
+            "type": "string",
+            "tsEnumNames": [
+                "FisUserInterface",
+                "FisApplicationServer",
+                "SystemServers"
+            ],
+            "enum": [
+                "FisUserInterface",
+                "FisApplicationServer",
+                "SystemServers"
+            ]
+        },
+        "FisAppServerComponentsEnum": {
+            "title": "FisAppServerComponents",
+            "description": "Major components of Fis Application server",
+            "type": "string",
+            "tsEnumNames": [
+                "UserClientProxy",
+                "NetworkController",
+                "BackOfficeApplication",
+                "MircroServiceHandler",
+                "QueryModule",
+                "NotificationManager",
+                "GlobalStore"
+            ],
+            "enum": [
+                "UserClientProxy",
+                "NetworkController",
+                "BackOfficeApplication",
+                "MircroServiceHandler",
+                "QueryModule",
+                "NotificationManager",
+                "GlobalStore"
+            ]
+        },
+        "UserInterfaceComponentTypesEnum": {
+            "title": "UserInterfaceComponentTypes",
+            "description": "Major UI components",
+            "type": "string",
+            "tsEnumNames": [
+                "Presentation",
+                "GlobalStore",
+                "DomainProxy",
+                "Component"
+            ],
+            "enum": [
+                "Presentation",
+                "GlobalStore",
+                "DomainProxy",
+                "Component"
+            ]
+        },
+        "UserInterfaceControlTypesEnum": {
+            "title": "UserInterfaceControlTypes",
+            "description": "Mapping of visual controls to logical control types. Buttons and Menu items are consider logically as a Command control.",
+            "type": "string",
+            "tsEnumNames": [
+                "Panel",
+                "Command",
+                "Field"
+            ],
+            "enum": [
+                "Panel",
+                "Command",
+                "Field"
+            ]
+        },
+        "UserInterfaceControlCommonFunctionsEnum": {
+            "title": "UserInterfaceControlCommonFunctions",
+            "description": "Common functions that appeats in all logical controls.",
+            "type": "string",
+            "tsEnumNames": [
+                "Enable",
+                "Disable",
+                "Hide",
+                "Unhide",
+                "Selected",
+                "ShowOptions",
+                "ShowDescriptions"
+            ],
+            "enum": [
+                "Enable",
+                "Disable",
+                "Hide",
+                "Unhide",
+                "Selected",
+                "ShowOptions",
+                "ShowDescriptions"
+            ]
+        },
+        "UserInterfaceControlPanelFunctionsEnum": {
+            "description": "Visual control events to be mapped to this panel functions. Extend from common functions",
+            "allOf": [
+                {
+                    "$ref": "#/definitions/UserInterfaceControlCommonFunctionsEnum"
+                },
+                {
+                    "title": "UserInterfaceControlPanelFunctions",
+                    "description": "Visual control events to be mapped to this panel functions",
+                    "type": "string",
+                    "tsEnumNames": [
+                        "Open",
+                        "Close",
+                        "ScrollUp",
+                        "ScrollDown",
+                        "ScrollRight",
+                        "ScrollLeft",
+                        "Maximise",
+                        "Minimise",
+                        "OpenChild",
+                        "CloseChild",
+                        "CommandSelected",
+                        "PropertyChanges",
+                        "SetTitle"
+                    ],
+                    "enum": [
+                        "OPEN",
+                        "CLOSE",
+                        "SCROLL-UP",
+                        "SCROLL-DOWN",
+                        "SCROLL-RIGHT",
+                        "SCROLL-LEFT",
+                        "MAXIMISE",
+                        "MINIMISE",
+                        "OPEN-CHILD",
+                        "CLOSE-CHILD",
+                        "COMMAND-SELECTED",
+                        "PROPERTY-CHANGED",
+                        "SET-TITLE"
+                    ]
+                },
+                {
+                    "examples": [
+                        "PANEL-CREATED",
+                        "PANEL-CLOSED",
+                        "MOUSE-OVER",
+                        "SCROLL-UP"
+                    ]
+                }
+            ]
+        },
+        "UserInterfaceControlCommandFunctionsEnum": {
+            "description": "Logical Command controls functions. ",
+            "allOf": [
+                {
+                    "$ref": "#/definitions/UserInterfaceControlCommonFunctionsEnum"
+                },
+                {
+                    "title": "UserInterfaceControlCommandFunctions",
+                    "type": "string",
+                    "tsEnumNames": [
+                        "Execute",
+                        "ShowDetails",
+                        "ShowChildCommand",
+                        "Enable",
+                        "Disable"
+                    ],
+                    "enum": [
+                        "EXECUTE",
+                        "SHOW-DETAILS",
+                        "SHOW-CHILD-COMMAND",
+                        "ENABLE",
+                        "DISABLE"
+                    ]
+                }
+            ]
+        },
+        "UserInterfaceControlFieldFunctionsEnum": {
+            "description": "Logical field controls functions. ",
+            "allOf": [
+                {
+                    "$ref": "#/definitions/UserInterfaceControlCommonFunctionsEnum"
+                },
+                {
+                    "title": "UserInterfaceControlFieldFunctions",
+                    "type": "string",
+                    "tsEnumNames": [
+                        "ValueChanged",
+                        "Undo",
+                        "Redo",
+                        "SetValue"
+                    ],
+                    "enum": [
+                        "ValueChanged",
+                        "Undo",
+                        "Redo",
+                        "SetValue"
+                    ]
+                }
+            ]
+        },
+        "SystemServersEnum": {
+            "title": "SystemServers",
+            "description": "System softwares. Windows, NodeJs, NestJS, MicroserviceServers etc",
+            "type": "string",
+            "tsEnumNames": [
+                "OperatingSystem",
+                "Webservers",
+                "Database",
+                "ApplicationStake",
+                "QuerySystem",
+                "Network",
+                "MicroserviceServer"
+            ],
+            "enum": [
+                "OperatingSystem",
+                "Webservers",
+                "Database",
+                "ApplicationStake",
+                "QuerySystem",
+                "Network",
+                "MicroserviceServer"
+            ]
+        },
+        "RequestStatusEnum": {
+            "title": "RequestStatus",
+            "description": "Possible statuses of a Request",
+            "type": "string",
+            "tsEnumNames": [
+                "RequestReceived",
+                "RequestInProcess",
+                "RequestCancelled",
+                "RequestEnded",
+                "ProcessingRequestFailed",
+                "ProcessingRequestSuccessful"
+            ],
+            "enum": [
+                "RequestReceived",
+                "RequestInProcess",
+                "RequestCancelled",
+                "RequestEnded",
+                "ProcessingRequestFailed",
+                "ProcessingRequestSuccessful"
+            ]
+        },
+        "NotificationTypeEnum": {
+            "title": "NotificationType",
+            "description": "For UI Events, MS Events, NestJS Events, FIS Events",
+            "type": "string",
+            "tsEnumNames": [
+                "UserActivity",
+                "BusinessEvent",
+                "AppServerEvent",
+                "NetworkSystemEvent",
+                "SystemServerEvent"
+            ],
+            "enum": [
+                "UserActivity",
+                "BusinessEvent",
+                "AppServerEvent",
+                "NetworkSystemEvent",
+                "SystemServerEvent"
+            ]
+        },
+        "NotificationNatureEnum": {
+            "title": "NotificationNature",
+            "type": "string",
+            "tsEnumNames": [
+                "Exception",
+                "ActionRequired",
+                "ForInformation"
+            ],
+            "enum": [
+                "Exception",
+                "ActionRequired",
+                "ForInformation"
+            ]
+        },
+        "FactoryTypeEnum": {
+            "title": "FactoryType",
+            "description": "Types of injectable services",
+            "type": "string",
+            "tsEnumNames": [
+                "MessageCreator",
+                "MircroServiceProducerTopic",
+                "MircroServiceConsumerTopic"
+            ],
+            "enum": [
+                "MessageCreator",
+                "MircroServiceProducerTopic",
+                "MircroServiceConsumerTopic"
+            ]
+        },
+        "UIEventMessage": {
+            "description": "A general UI React Control Item event message for events such as mouse over, property changed, onclick etc. In the case of UI, the term Notification and Event is used interchangeably. A message will contain only one event (which is passed in the message data section). Should be an Interface Type",
+            "$comment": "Draft, to be completed",
+            "type": "object",
+            "properties": {
+                "message": {
+                    "items": false,
+                    "additionalProperties": false,
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/NotificationMessageHeader"
+                        },
+                        {
+                            "properties": {
+                                "eventType": {
+                                    "title": "UIEventType",
+                                    "description": "?? to define various UI notification type.",
+                                    "type": "string",
+                                    "tsEnumNames": [
+                                        "MouseAction",
+                                        "ValueChanged"
+                                    ],
+                                    "enum": [
+                                        "MouseAction",
+                                        "ValueChanged"
+                                    ]
+                                },
+                                "sourceComponent": {
+                                    "description": "The Ng Component that generated the event. For now is just a string. Later make it a reference to a Component schema",
+                                    "type": "string"
+                                },
+                                "sourceComponentControlType": {
+                                    "description": "The type of control item (MENU, FIELD, WINDOW, LINKS) that generated the event. There should be enum value for types of controls.",
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "eventType"
+                            ],
+                            "additionalProperties": false
+                        }
+                    ]
+                }
+            },
+            "additionalProperties": false
+        },
+        "UIVisualControlAttributes": {
+            "$comment": "KIV, to be done",
+            "type": "object"
+        }
+    }
+}

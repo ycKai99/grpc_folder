@@ -1,0 +1,17 @@
+syntax="proto3";
+
+package message;
+
+service MessageService {
+    rpc HandleMessage (Request) returns (stream Response);
+}
+
+message Request { 
+    string id =1;
+    string message = 2;
+}
+
+message Response { 
+    string id = 1;
+    string message = 2;
+}
