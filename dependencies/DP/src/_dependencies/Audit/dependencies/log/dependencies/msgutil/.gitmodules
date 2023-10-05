@@ -1,0 +1,6 @@
+[submodule "dependencies/fisappmessagejsdistribution"]
+	path = dependencies/fisappmessagejsdistribution
+	url = https://swopt.com:3000/cpu/fisappmessagejsdistribution.git
+[submodule "dependencies/fis-types"]
+	path = dependencies/fis-types
+	url = https://swopt.com:3000/FAMBL/fis-types.git

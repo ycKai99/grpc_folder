@@ -1,0 +1,122 @@
+@startuml FIS Proxy
+title ~~FIS Proxy Model~~
+
+interface "Subscribable Interface" as SubscribableInterface {
+  subscribe(observer: Partial<Observer<T>>): Unsubscribable // Unsubscribable means subscription
+}
+
+class "**GenericProxy**" as GenericProxy
+{
+  public inputObservable: Observable<any>;   
+  public outputObservable: Observable<any>;  
+  public subscribe(observer: Partial<Observer<T>>): Unsubscribable // Unsubscribable means subscription 
+  private messageDeliveryController: MessageDeliveryController; 
+} 
+
+SubscribableInterface ..|> GenericProxy: implements
+
+class "**ApplicationProxy**" as ApplicationProxy
+{
+  private proxy: GenericProxy; 
+  private appProfile: AppProfile[];  
+  public subscribe(observer: Partial<Observer<T>>): Unsubscribable // Unsubscribable means subscription
+} 
+ 
+GenericProxy --* ApplicationProxy: composition 
+
+class "**DomainProxy**" as DomainProxy
+{
+  public proxy: ApplicationProxy;    
+  public subscribe(observer: Partial<Observer<T>>): Unsubscribable // Unsubscribable means subscription 
+} 
+ 
+ApplicationProxy --* DomainProxy: composition 
+
+class "**ClientProxy**" as ClientProxy
+{
+  public proxy: ApplicationProxy;     
+  public subscribe(observer: Partial<Observer<T>>): Unsubscribable // Unsubscribable means subscription
+} 
+ 
+ApplicationProxy --* ClientProxy: composition 
+
+interface ConnectionInterface { 
+  IdName: string; // Identifier Name that is Unique 
+  Description: string; // Description 
+  Type: 'SocketIO' | 'Http' | 'Microservice' | 'grpc'; // Type 
+  Target: string; // Target
+}
+
+interface MessageDeliveryInterface {   
+  initialise(settings:ConnectionInterface); // Setup connection interface 
+  setConnection(settings: ConnectionInterface) // Add new connection interface
+  emit(msg: NotificationMessage): Observable<ResponseMessage>; // To emit event: 
+  send(msg: RequestMessage): Observable<ResponseMessage>; // To perform a task: 
+  subscribe(msg: SubscriptionMessage): Observable<ResponseMessage>;   // To subscribe events: 
+  MessageService?: FisCreateMessageUtility; // Message Service 
+  isConnectionStatusObserved: boolean; // Observe connection status in next event or not?
+}
+
+interface MessageDeliveryRunTimeInterface { 
+  UCP_ID?: string; // UCP_ID 
+  status: 'connected' | 'disconnected' | 'close'; // Status
+} 
+
+class MessageDeliveryController 
+{
+  private connectionsList: {
+    [connectionIdName: string]:
+      | MessageDeliveryInterface
+      | MessageDeliveryRunTimeInterface
+  } = {} // Communication pools
+  private requests:RequestMessage[]; 
+  private responses:ResponseMessage[]; 
+  protected MessageService: FisCreateMessageUtility; 
+  protected logger:LoggingService; 
+  **protected messageSynchronisation:MessageSynchronisationService;**
+  public subscribe(connectionsList:string ,msg: FisAppMessage): Observable<FisAppMessage>;   // To subscribe
+}
+
+GenericProxy*--MessageDeliveryController :composition
+
+class LoggingService { 
+}
+class FisCreateMessageUtility { 
+}
+
+class "**EmulatedDomainProxyService**" as EmulatedDomainProxyService { 
+}
+
+MessageDeliveryController "1" o..{ "1,.." MessageDeliveryInterface :contains
+MessageDeliveryController "1" o..{ "1,.." MessageDeliveryRunTimeInterface :contains
+MessageDeliveryRunTimeInterface --|> MessageDeliveryInterface :extends
+
+MessageDeliveryController *-- LoggingService :composition
+MessageDeliveryController *-- FisCreateMessageUtility :composition
+
+MessageDeliveryInterface *- ConnectionInterface  :composition
+
+
+class SocketCommService {
+}
+MessageDeliveryInterface <|.. SocketCommService: implements
+
+class HttpDomainProxyService {
+}
+MessageDeliveryInterface <|.. HttpDomainProxyService: implements
+
+class MicroserviceDomainProxyService {
+}
+MessageDeliveryInterface <|.. MicroserviceDomainProxyService: implements
+
+class GrpcDomainProxyService{ 
+} 
+MessageDeliveryInterface <|.. GrpcDomainProxyService: implements 
+
+class "**MessageSynchronisationService**" as MessageSynchronisationService { 
+} 
+MessageDeliveryController *-- MessageSynchronisationService: composition 
+
+MessageDeliveryInterface <|.. EmulatedDomainProxyService :implements
+
+@enduml

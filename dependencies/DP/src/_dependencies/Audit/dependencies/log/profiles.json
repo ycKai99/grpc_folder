@@ -1,0 +1,105 @@
+{
+    "payload": {
+         "set1": {
+            "appLocation": {
+                "appId": "fca1a46d-8f1b-4235-adf6-270754fd0c40",
+                "appLocId": "6de0385a-0d57-4ff4-96fa-6772f2d4848d",
+                "appLocName": "appLocationName"
+            },
+            "logLocation": {
+                "logLocId": "9f2a9cc1-6098-4a9b-8e14-6543440c3449",
+                "logLocName": "logLocationName"
+            },
+            "appLogLoc": {
+                "appLogLocId": "06a1634b-45eb-40b5-92a6-6787ec3f0726",
+                "appLocId": "6de0385a-0d57-4ff4-96fa-6772f2d4848d",
+                "logLocId": "9f2a9cc1-6098-4a9b-8e14-6543440c3449"
+            },
+            "appProfile": {
+                "appId": "fca1a46d-8f1b-4235-adf6-270754fd0c40",
+                "appName": "FIS"
+            }
+        },  
+        "set2": {
+            "appLocation": {
+                "appId": "iosu8342-4283-4235-adf6-270754fd0c40",
+                "appLocId": "3988fe3f-f10c-40c8-af04-3ce7967127b9",
+                "appLocName": "appLocationName2"
+            },
+            "logLocation": {
+                "logLocId": "93323d74-03c5-4321-9206-a7baa7518e9d",
+                "logLocName": "logLocationName2"
+            },
+            "appLogLoc": {
+                "appLogLocId": "1d1bb33f-1a2b-401c-8d59-1701c1366168",
+                "appLocId": "3988fe3f-f10c-40c8-af04-3ce7967127b9",
+                "logLocId": "93323d74-03c5-4321-9206-a7baa7518e9d"
+            },
+            "appProfile": {
+                "appId": "iosu8342-4283-4235-adf6-270754fd0c40",
+                "appName": "SWOPT"
+            }
+        },
+        "set3": {
+            "appLocation": {
+                "appId": "934io8e9-a5b5-487e-8c91-08d7e183b88f",
+                "appLocId": "c9db4477-a5b5-487e-8c91-08d7e183b88f",
+                "appLocName": "appLocationName3"
+            },
+            "logLocation": {
+                "logLocId": "34fea5f1-60f1-4d74-a18f-c051f34ba741",
+                "logLocName": "logLocationName3"
+            },
+            "appLogLoc": {
+                "appLogLocId": "f9123df1-b80d-45a0-b676-0bc09ee6dcd5",
+                "appLocId": "c9db4477-a5b5-487e-8c91-08d7e183b88f",
+                "logLocId": "34fea5f1-60f1-4d74-a18f-c051f34ba741"
+            },
+            "appProfile": {
+                "appId": "934io8e9-a5b5-487e-8c91-08d7e183b88f",
+                "appName": "GOOGLE"
+            }
+        },
+        "set4": {
+            "appLocation": {
+                "appId": "viva1234-a5b5-487e-8c91-08d7e183bfg2",
+                "appLocId": "opel7485-a5b5-487e-8c91-08d7e183bfg2",
+                "appLocName": "appLocationName4"
+            },
+            "logLocation": {
+                "logLocId": "32fea5f1-8RU7-4d74-a18f-c051f34ba741",
+                "logLocName": "logLocationName4"
+            },
+            "appLogLoc": {
+                "appLogLocId": "f9123df1-b80d-45a0-b676-0bc09ee6dcd5",
+                "appLocId": "opel7485-a5b5-487e-8c91-08d7e183bfg2",
+                "logLocId": "32fea5f1-8RU7-4d74-a18f-c051f34ba741"
+            },
+            "appProfile": {
+                "appId": "viva1234-a5b5-487e-8c91-08d7e183bfg2",
+                "appName": "YOUTUBE"
+            }
+        },
+        "set5": {
+            "appLocation": {
+                "appId": "8982102j-a5b5-487e-8c91-08d7e183bfg2",
+                "appLocId": "c9db9999-a5b5-487e-8c91-08d7e183bfg2",
+                "appLocName": "appLocationName5"
+            },
+            "logLocation": {
+                "logLocId": "32fea5f1-8RU7-90ip-65as-c051f34ba741",
+                "logLocName": "logLocationName5"
+            },
+            "appLogLoc": {
+                "appLogLocId": "f9123df1-b80d-45a0-b676-0bc09ee6dcd5",
+                "appLocId": "c9db9999-a5b5-487e-8c91-08d7e183bfg2",
+                "logLocId": "32fea5f1-8RU7-90ip-65as-c051f34ba741"
+            },
+            "appProfile": {
+                "appId": "8982102j-a5b5-487e-8c91-08d7e183bfg2",
+                "appName": "DISCORD"
+            }
+        }
+    }
+}
+        

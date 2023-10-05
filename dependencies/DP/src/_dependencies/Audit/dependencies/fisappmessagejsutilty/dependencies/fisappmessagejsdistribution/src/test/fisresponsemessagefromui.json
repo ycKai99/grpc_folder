@@ -1,0 +1,53 @@
+{
+  "producer": {
+    "type": "UI"
+  },
+  "requestMessageRespondTo": {
+    "header": {
+      "messageType": "FisQuery",
+      "messageID": "2d086ba5-e57e-4e88-8bc3-b60abb7c1282",
+      "messageName": "App Request Message",
+      "dateCreated": "2020-06-30T05:47:25.759Z",
+      "isAggregate": false,
+      "messageProducerInformation": {
+        "origin": {
+          "userApplication": {
+            "userAppId": "",
+            "userAppName": ""
+          },
+          "appArchitectureTiers": "FisApplicationServer",
+          "messageFactoryType": "MessageCreator",
+          "programID": "",
+          "programName": ""
+        },
+        "components": "Presentation"
+      },
+      "security": {
+        "applicationLogInID": "",
+        "applicationUserName": "",
+        "socialNetworkLoginID": "test@test.com",
+        "socialNetworkUserName": "",
+        "ucpId": ""
+      },
+      "messageDataLocation": {
+        "accessId": "",
+        "accessPassword": "",
+        "fileName": "",
+        "isEmbaded": false,
+        "url": "http://test"
+      },
+      "messageDataFormat": {
+        "dataFormat": "Json"
+      },
+      "requestExecutionMode": 0,
+      "responseRequirement": {
+        "responseDataFormat": {
+          "dataFormat": "Json"
+        }
+      },
+      "resquestTimeOut": 0,
+      "query": "General"
+    },
+    "data": {}
+  }
+}

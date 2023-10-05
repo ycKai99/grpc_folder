@@ -1,0 +1,7 @@
+{
+  "files.autoSave": "onFocusChange",
+  "workbench.tree.indent": 20,
+  "workbench.colorCustomizations": {
+    "tree.indentGuidesStroke": "#95efff"
+  }
+}

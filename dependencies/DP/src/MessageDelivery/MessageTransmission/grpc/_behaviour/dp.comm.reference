@@ -1,0 +1,153 @@
+import { Injectable } from "@angular/core";
+import { Observable } from "rxjs";
+import { grpc } from '@improbable-eng/grpc-web';
+import { Request, Response } from './grpc/messages_pb';
+import { MessageServiceClient, Status } from './grpc/messages_pb_service';
+import { Store } from '@ngxs/store';
+import { URLs } from './dp.config';
+import * as axios from "axios"
+import { HttpService } from "@nestjs/axios";
+//const msgClient = new grpcClient('./grpc/messages.proto','messages','MessageService','swopt.com:4202');
+/** 
+    This service acts as a communication tier between this Angular application and the Server
+    All communication to the backend server has to run through this service, keeping the server
+        communication hidden from Angular's perspective
+*/
+@Injectable()
+export class DPCommService {
+    userdat = { user: 'abc', pass: '123' };
+    messageClient: MessageServiceClient;
+    jwtToken: string;
+
+    constructor(private http: HttpService, private store: Store
+    ) { }
+
+    /**
+     * initiate Protobuf stream from server
+     * @param Request
+     */
+    callProtobufStream(request: Request, protoServerUrl?: string): Observable<Response> {
+        return new Observable(observer => {
+            if (!this.messageClient) this.messageClient = new MessageServiceClient(protoServerUrl ? protoServerUrl : URLs.GRPC);
+            let call = this.messageClient.handleMessage(request);
+            call.on('status', (status: Status) => {
+                if (status.code !== grpc.Code.OK) {
+                    observer.error(status);
+                    observer.complete();
+                }
+            });
+            call.on('data', (response: Response) => {
+                let msgObj = JSON.parse(response.getMessage());
+                if (msgObj.status === 'failure' || msgObj.status === 'error') {
+                    observer.error(msgObj);
+                    observer.complete();
+                }
+                else observer.next(response);
+            });
+            call.on('end', () => {
+                observer.complete();
+            });
+        });
+    }
+
+    httpGet<T>(url: string, params?): Observable<any> {
+        return new Observable(observer => {
+            let hdrs: axios.AxiosRequestConfig<any> = {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            };
+            this.http.get(url, hdrs).subscribe(
+                res => { observer.next(res); observer.complete(); },
+                error => { observer.error(error) }
+            );
+        })
+
+    }
+
+    httpPost<T>(url: string, params?): Observable<any> {
+        return new Observable(observer => {
+            let hdrs: axios.AxiosRequestConfig<any> = {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            };
+            this.http.post(url, JSON.stringify(params), hdrs).subscribe(
+                res => { observer.next(res); observer.complete(); },
+                error => { observer.error(error) }
+            );
+        })
+
+    }
+
+    getFromDomain<T>(url: string, params?): Observable<any> {
+        return new Observable(observer => {
+            let hdrs: axios.AxiosRequestConfig = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer abcd123'
+                }
+            };
+            this.http.post(url, JSON.stringify(params), hdrs).subscribe(
+                res => { observer.next(res); observer.complete(); },
+                error => { observer.error(error) }
+            );
+        })
+
+    }
+
+    postToDomain(url: string, payload: any): Observable<any> {
+        return new Observable(observer => {
+            let hdrs: axios.AxiosRequestConfig<any> = {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            };
+            this.http.post(url, payload, hdrs).subscribe(
+                res => { observer.next(res); observer.complete(); },
+                error => { observer.error(error); }
+            );
+        })
+    }
+
+    uploadFiles(url: string, formData: FormData): Observable<any> {
+        return new Observable(observer => {
+            this.http.post(url, formData).subscribe(
+                res => { observer.next(res); observer.complete(); },
+                error => { observer.error(error); }
+            );
+        })
+    }
+
+    /** *GET JWT Authentication Token from server and stores it in localStorage */
+    private getAuthKey(userdat: { user: string, pass: string }): Observable<string> {
+        return new Observable(observer => {
+            let authKey = localStorage.getItem("auth-key");
+            if (authKey === null) {
+                let body = new URLSearchParams();
+                body.append("username", userdat.user);
+                body.append("password", userdat.pass);
+                this.http.post(URLs.SERVER, body).subscribe(
+                    (res: any) => {
+                        authKey = res.data;
+                        localStorage.setItem("auth-key", authKey + '');
+                        observer.next(authKey);
+                        observer.complete();
+                    },
+                    error => {
+                        observer.error(error.json());
+                        observer.complete();
+                    }
+                );
+            }
+            observer.next(authKey);
+            observer.complete();
+        });
+    }
+
+}
+
+export class MessageType {
+    static readonly GET_METADATA = "getMetadata";
+    static readonly GET_BIZDATA = "getBizData";
+}

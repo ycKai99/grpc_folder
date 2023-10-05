@@ -1,0 +1,19 @@
+{
+	"$schema": "http://json-schema.org/schema#",
+
+    "type": "object",
+    "properties": {
+      "prop1": { "$ref": "#/definitions/prop1" },
+      "prop2": { "$ref": "#/definitions/prop2" },
+      "prop3": { "$ref": "#/definitions/prop3" }
+    },
+    "definitions": {
+      "prop1": { "enum": ["VAL1", "VAL2"] },
+      "prop2": { "enum": ["VAL3", "VAL4"] },
+      "prop3": {
+        "anyOf": [
+          { "$ref": "#/definitions/prop1" },
+          { "$ref": "#/definitions/prop2" }
+        ]
+      }
+    }}

@@ -1,0 +1,10 @@
+node_modules
+*.js.map
+*.js
+appLocation.json
+genericdatas.json
+appLogLoc.json
+appProfile.json
+log.json
+loglocation.json
+stupid.ts

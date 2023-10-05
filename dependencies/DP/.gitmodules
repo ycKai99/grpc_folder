@@ -1,0 +1,9 @@
+[submodule "src/_dependencies/Audit"]
+	path = src/_dependencies/Audit
+	url = https://swopt.com:3000/enzo/Fis-AuditMessage.git
+[submodule "src/_dependencies/FISAppMessageJSUtility"]
+	path = src/_dependencies/FISAppMessageJSUtility
+	url = https://swopt.com:3000/FAMBL/FISAppMessageJSUtility.git
+[submodule "src/_dependencies/BasicActor"]
+	path = src/_dependencies/BasicActor
+	url = https://swopt.com:3000/FAMBL/Fis-BasicActor.git

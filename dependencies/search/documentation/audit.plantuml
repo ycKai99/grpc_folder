@@ -1,0 +1,51 @@
+@startuml MessageAuditor
+header Message Auditor
+left to right direction
+
+package 1 {
+    [Publisher]
+    database database1
+}
+package 2 {
+    [Consumer]
+    database database2
+}
+Actor Auditor
+
+:Participant: => (HelpDesk) : Complain Error \n(Whatever error that may be)
+:Participant: => database2 : Perform query but \ndidn't receive what \nthey want
+database1 <|. Publisher : Stream into \ndesignated \ndatabase
+Consumer .|> database2 : Stream into \ndesignated \ndatabase
+Publisher ...|> Consumer : Stream \nSubscribed \nData 
+Publisher .|> Consumer : Stream \nMissing \nData
+Publisher --> Auditor : Subscribe for \nerror notification
+Consumer --> Auditor : Subscribe for \nerror notification
+Consumer -> Publisher : Subscribe \nfor \ndata
+Auditor --> HelpDesk : Subscribe for \nerror notificaiton
+HelpDesk ..|> Auditor : Stream Error Notification
+
+Auditor ===> Publisher : Check Relevant Publisher
+Auditor ==> Consumer : Check Relevant Consumer
+Auditor ..|> Publisher : Stream \nmissing \ndata
+Auditor ==> database1 : Check and compare \nrelevant database if needed
+Auditor ==> database2 : Check and compare \nrelevant database if needed
+
+
+@enduml
+
+
+/' Brief Summary of my comprehension:
+    Publisher will stream data into designated database. 
+    Consumer will subscribe to publisher in order to have the same set of data.
+    Participant perform query for database2 from the consumer side but didn't 
+    get what they want.
+    So participant send error message to help desh ,presumably an observable that
+    broadcaast error notification to whomever that has subscribe to it.
+    So helpdesk stream the error notification to one of it's subscriber, in this 
+    case, it's the message auditor, aka Auditor.
+    Auditor can either go check at the database, or check the publisher and 
+    consumers themselves, provided if there's a logic for that to see what went
+    wrong. In this case, we are dealing with loss of data transmission, so
+    auditor will acquire the information of the missing data and send the 
+    error message to publisher to retransmit the data again to the consumer
+ '/

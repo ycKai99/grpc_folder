@@ -1,0 +1,110 @@
+import { Controller, HttpService, Inject, Injectable } from '@nestjs/common';
+import { map, Observable } from 'rxjs';
+import { grpc } from '@improbable-eng/grpc-web';
+import { Request, Response } from './grpc/messages_pb';
+import { MessageServiceClient, Status } from './grpc/messages_pb_service';
+import { URLs } from '../config/DP.config';
+import { MessageDeliveryInterface } from '../interface/MD.interface';
+import { FisCreateMessageUtility } from '../dependencies/FISAppMessageJSUtility/interface/export';
+
+import {
+  NotificationMessage,
+  RequestMessage,
+  ResponseMessage,
+  SubscriptionMessage,
+} from '../dependencies/FISAppMessageJSUtility/interface/export';
+import { ConnectionInterface } from '../interface/MD.connection.interface';
+
+//const msgClient = new grpcClient('./grpc/messages.proto','messages','MessageService','swopt.com:4202');
+/** 
+    This service acts as a communication tier between this Angular application and the Server
+    All communication to the backend server has to run through this service, keeping the server
+        communication hidden from Angular's perspective
+*/
+@Injectable()
+export class GRPCDomainProxyServiceClass implements MessageDeliveryInterface {
+  public MessageService: FisCreateMessageUtility;
+  public isConnectionStatusObserved = false;
+  private settings:ConnectionInterface;
+
+  initialise(settings:ConnectionInterface){
+    this.settings = settings;
+  }
+
+  emit(msg: NotificationMessage) {
+    // return this.callProtobufStream(msg);
+    let req = new Request();
+    req.setMessage(JSON.stringify(msg));
+
+    return this.callProtobufStream(req).pipe(
+      map((resp) => this.convertFisAppResponse(resp)),
+    );
+  }
+  send(
+    msg: RequestMessage | NotificationMessage,
+    isStream: boolean = true,
+  ): Observable<ResponseMessage> {
+    let req = new Request();
+    req.setMessage(JSON.stringify(msg));
+
+    return this.callProtobufStream(req).pipe(
+      map((resp) => this.convertFisAppResponse(resp)),
+    );
+  }
+
+  convertFisAppResponse(resp: any): ResponseMessage {
+    try {
+      let message: ResponseMessage;
+      message = JSON.parse(resp['message']);
+      return message;
+    } catch (e) {
+      console.log('Error performing conversion.' + e);
+      console.log(resp);
+    }
+  }
+
+  public getMessageService() {
+    return this.MessageService;
+  }
+
+  userdat = { user: 'abc', pass: '123' };
+  messageClient: MessageServiceClient;
+  jwtToken: string;
+
+  constructor() {}
+
+  /**
+   * initiate Protobuf stream from server
+   * @param Request
+   */
+  callProtobufStream(request: Request): Observable<Response> {
+    return new Observable((observer) => {
+      if (!this.messageClient)
+        this.messageClient = new MessageServiceClient(URLs.GRPC);
+      console.log('DPComm', this.messageClient);
+      let call = this.messageClient.handleMessage(request);
+      call.on('status', (status: Status) => {
+        if (status.code !== grpc.Code.OK) {
+          observer.error(status);
+          observer.complete();
+        }
+      });
+      call.on('data', (response: Response) => {
+        let msgObj = JSON.parse(response.getMessage());
+        if (msgObj.status === 'failure' || msgObj.status === 'error') {
+          observer.error(msgObj);
+          observer.complete();
+        } else observer.next(response);
+      });
+      call.on('end', () => {
+        observer.complete();
+      });
+    });
+  }
+}
+export const GRPCCommService: GRPCDomainProxyServiceClass = new GRPCDomainProxyServiceClass();
+
+export class MessageType {
+  static readonly GET_METADATA = 'getMetadata';
+  static readonly GET_BIZDATA = 'getBizData';
+}

@@ -1,0 +1,36 @@
+{
+	"$schema": "http://json-schema.org/schema#",
+	"title": "FisAppMessage",
+	"type": "object",
+	"properties": {
+	"allOf": [
+		{"$ref": "#/definitions/Message"}
+	]
+	},
+	
+	"definitions": {
+		"Message": {
+			"description": "Payload data has the actual message sent by producer.\n@property header - Common information for all messages. Usually used by the Controller to direct message to an appropriate handler (or service).\n@property data - Data.",
+			"type": "object",
+			"properties": {
+				"header": {},
+				"data": {}
+			},
+			"required": [
+				"header",
+				"data"
+			],
+			"additionalProperties": false
+		}
+	},
+	"Test": {
+	"type": "object",
+	   "properties": {
+	   "A": {
+	      "allOf": [
+	         {"$ref": "#/definitions/Message"}
+	      ]
+	   }
+	   }
+	}
+}

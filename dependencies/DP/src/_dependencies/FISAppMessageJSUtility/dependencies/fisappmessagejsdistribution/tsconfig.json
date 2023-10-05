@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "target": "es2017",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "removeComments": true,
+    "noImplicitAny": false,
+    "watch": true,
+    "resolveJsonModule": true, 
+    "alwaysStrict": true,
+    "outDir": "dist",
+    "rootDir": "src",
+    "baseUrl": "./",
+    "preserveConstEnums":true 
+  },
+ "compileOnSave": true,
+ "include": ["*.ts",
+  "src/**/*",
+  "src/**/*.json",
+  "src/**/*.xml",
+  "public/**/*",
+  "routes/**/*",
+  "views/**/*"
+],
+ "exclude": [
+  "node_modules",
+  "**/*.spec.ts",
+  "./fisappmessageconfig.json"
+]
+}

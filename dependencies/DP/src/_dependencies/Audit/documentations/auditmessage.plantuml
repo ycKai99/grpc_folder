@@ -1,0 +1,36 @@
+@startuml MessageAuditor
+header Message MessageAuditor
+left to right direction
+
+package 1 {
+    [Publisher]
+    database "interface log location 1" as database1
+}
+package 2 {
+    database "interface log location 2" as database2
+    [Consumer]
+}
+[MessageAuditor]
+
+database1 <|-- Publisher #line:red;line.bold;text:Red : Publish into \ndesignated \nlog location 
+database2 <|-- Consumer #line:red;line.bold;text:Red : Publish into \ndesignated \nlog location
+Publisher --|> Consumer #green;line.dashed;text:green : Publish \nSubscribed \nData 
+Publisher <-- Consumer : Subscribe \nfor \ndata
+Error -> MessageAuditor
+
+
+database1 <--- MessageAuditor : Check and compare \nrelevant log location 
+MessageAuditor --> database2 : Check and compare \nrelevant log location 
+MessageAuditor --|> Publisher #blue;line.dotted;text:blue : Publish missing data
+
+
+@enduml
+'  Make changes to the line publish missing data
+
+/' Brief Summary :
+    When Error is emitted from relevant party, then the message auditor that
+    is subcribed to it will receive the message and perform the checking.
+    It will cross check against the two database to see what's missing, and
+    then will publish to the publisher for the missing data. The publisher 
+    will then include it in it's own stream.
+ '/

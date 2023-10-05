@@ -1,0 +1,94 @@
+{
+  "header": {
+    "messageType": "FisResponse",
+    "messageID": "7574f91c-90ef-4a61-bb81-db11a6de1d30",
+    "messageName": "App Response Message",
+    "dateCreated": "2020-08-11T05:46:04.090Z",
+    "isAggregate": false,
+    "messageProducerInformation": {
+      "origin": {
+        "userApplication": {
+          "userAppId": "",
+          "userAppName": ""
+        },
+        "appArchitectureTiers": "FisApplicationServer",
+        "messageFactoryType": "MessageCreator",
+        "programID": "",
+        "programName": ""
+      },
+      "components": "Presentation"
+    },
+    "security": {
+      "applicationLogInID": "",
+      "applicationUserName": "",
+      "socialNetworkUserName": "",
+      "ucpId": ""
+    },
+    "messageDataLocation": {
+      "accessId": "",
+      "accessPassword": "",
+      "fileName": "",
+      "isEmbaded": false
+    },
+    "messageDataFormat": {
+      "dataFormat": "Json",
+      "fileFormat": "Text",
+      "mediaType": "Text",
+      "schemaType": "GraphQl"
+    },
+    "requestMessageRespondTo": {
+      "header": {
+        "messageType": "FisQuery",
+        "messageID": "2d086ba5-e57e-4e88-8bc3-b60abb7c1282",
+        "messageName": "App Request Message",
+        "dateCreated": "2020-06-30T05:47:25.759Z",
+        "isAggregate": false,
+        "messageProducerInformation": {
+          "origin": {
+            "userApplication": {
+              "userAppId": "",
+              "userAppName": ""
+            },
+            "appArchitectureTiers": "FisApplicationServer",
+            "messageFactoryType": "MessageCreator",
+            "programID": "",
+            "programName": ""
+          },
+          "components": "Presentation"
+        },
+        "security": {
+          "applicationLogInID": "",
+          "applicationUserName": "",
+          "socialNetworkLoginID": "test@test.com",
+          "socialNetworkUserName": "",
+          "ucpId": ""
+        },
+        "messageDataLocation": {
+          "accessId": "",
+          "accessPassword": "",
+          "fileName": "",
+          "isEmbaded": false,
+          "url": "http://test"
+        },
+        "messageDataFormat": {
+          "dataFormat": "Json"
+        },
+        "requestExecutionMode": 0,
+        "responseRequirement": {
+          "responseDataFormat": {
+            "dataFormat": "Json"
+          }
+        },
+        "resquestTimeOut": 0,
+        "query": "General"
+      },
+      "data": {}
+    },
+    "fisMessageHeader": {
+      "instanceId": "",
+      "serviceId": "",
+      "userId": ""
+    }
+  },
+  "data": {}
+}

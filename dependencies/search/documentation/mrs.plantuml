@@ -1,0 +1,60 @@
+@startuml Message Retransmission
+header Message Retransmission / Service Library
+  
+component "Publisher"{
+    [OBS_Pub] 
+    [MRS_Pub1] 
+}
+
+component "Consumer"{
+    [MRS_Con1] 
+    [OBS_Sub]
+}
+ 
+component "Content Delivery Management Server(Pub)" as CDMS_Pub{
+    "DataController" as [DataController1]
+    [MRS_Pub2]
+}
+
+component "Content Delivery Management Server(Con)" as CDMS_Con{
+    "DataController" as [DataController2]
+    [MRS_Sub2]
+}
+
+database "Database" as Database_Pub {
+    folder "This is log Location 1" {
+        [Messages]
+    }
+}
+database "Database" as Database_Con {
+    folder "This is log Location 2" {
+        [Messages2]
+    }
+}
+[MRS_Pub1] -- [MRS_Con1]  : Basic Synchronization
+
+[MRS_Pub1] - [OBS_Pub]
+[MRS_Con1]  - [OBS_Sub]
+  
+[OBS_Pub] .> CDMS_Pub
+[MRS_Pub2] - [DataController1] 
+[DataController1] .> Database_Pub:Write Data  
+[OBS_Sub] .> CDMS_Con 
+[MRS_Sub2] - [DataController2]  
+[DataController2] <. Database_Con:Read Data
+
+[MRS_Pub2] -- [MRS_Sub2]
+' CDMS_Pub - CDMS_Con : Synchronization over MRS library 
+
+@enduml
+
+' So, when Publisher creates messages from the relevant library, it will then
+' store in to it's own designated database, and will also attempt to broadcast
+' to the consumer it's relevant information. 
+' They can perform basic synhronization or utilzie the CDMC: Content Delivery Management Server
+' to manage the message payload by leveraging the MRS library to do the synching
+' MRS library will check the data loss by taking the specified data to be 
+' compared and then perform retransmission if needed.
+
+' Rearrage the position
+' use MR_S_Pub1 MR_S_Con1 MR_S_Pub2 MR_S_Con2 

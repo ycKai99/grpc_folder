@@ -1,0 +1,3 @@
+[submodule "dependencies/msgutil"]
+	path = dependencies/msgutil
+	url = https://swopt.com:3000/FAMBL/FISAppMessageJSUtility

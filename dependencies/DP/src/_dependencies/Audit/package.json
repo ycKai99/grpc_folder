@@ -1,0 +1,38 @@
+{
+  "name": "Fis-AuditMessage",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "temp": "node test/temptest.js",
+    "start": "node test/test1a.js",
+    "start1a": "node test/test1a.js",
+    "start1b": "node test/test1b.js",
+    "start2a": "node test/test2a.js",
+    "start2b": "node test/test2b.js",
+    "start3a": "node test/test3a.js",
+    "start3b": "node test/test3b.js",
+    "start3c": "node test/test3c.js",
+    "start4": "node test/test4.js",
+    "start5": "node test/test5.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://swopt.com:3000/enzo/Fis-AuditMessage.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/node": "^18.11.18",
+    "dotenv": "^16.0.3",
+    "jsonschema": "^1.4.1",
+    "lodash": "^4.17.21",
+    "mongoose": "^6.9.0",
+    "rfdc": "^1.3.0",
+    "rxjs": "^7.8.1",
+    "typescript": "^4.9.4",
+    "uuid": "^9.0.0"
+  }
+}

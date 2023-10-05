@@ -1,0 +1,155 @@
+{
+	"$schema": "http://json-schema.org/schema#",
+	"definitions": {
+		"MessageType": {
+			"title": "MessageType",
+			"description": "Message type. To identify different types of message.",
+			"type": "string",
+			"tsEnumNames": [
+				"Base",
+				"Command",
+				"MicroserviceNotification",
+				"Notification",
+				"Query",
+				"Request",
+				"Response",
+				"ResponseData",
+				"ResponseException",
+				"ResponseStatus",
+				"ResponseSubscription",
+				"Subscription"
+			],
+			"enum": [
+				"Base",
+				"Command",
+				"MicroserviceNotification",
+				"Notification",
+				"Query",
+				"Request",
+				"Response",
+				"ResponseData",
+				"ResponseException",
+				"ResponseStatus",
+				"ResponseSubscription",
+				"Subscription"
+			]
+		},
+		"CommandEnum": {
+			"title": "Command",
+			"description": "List of commands",
+			"type": "string",
+			"tsEnumNames": [
+				"New",
+				"Update",
+				"Delete",
+				"SetFieldValue",
+				"Save",
+				"Cancel",
+				"Commit"
+			],
+			"enum": [
+				"New",
+				"Update",
+				"Delete",
+				"SetFieldValue",
+				"Save",
+				"Cancel",
+				"Commit"
+			]
+		},
+		"QueryEnum": {
+			"title": "Query",
+			"description": "Query request.",
+			"type": "string",
+			"tsEnumNames": [
+				"General"
+			],
+			"enum": [
+				"General"
+			]
+		},
+		"SubscriptionEnum": {
+			"title": "Subscription",
+			"description": "Request to subscribe messages",
+			"type": "string",
+			"tsEnumNames": [
+				"General"
+			],
+			"enum": [
+				"General"
+			]
+		},
+		"FisMessageTypeAll": {
+			"title": "FisMessageTypeAll",
+			"type": "string",
+			"allOf": [
+				{
+					"$ref": "#/definitions/MessageType"
+				},
+				{
+					"$ref": "#/definitions/FisMessageType"
+				}
+			]
+		},
+		"FisMessageType": {
+			"title": "FisMessageType",
+			"description": "FisMessage type. To identify different types of message.",
+			"type": "string",
+			"tsEnumNames": [
+				"FisBase",
+				"FisCommand",
+				"FisQuery",
+				"FisRequest",
+				"FisResponse"
+			],
+			"enum": [
+				"FisBase",
+				"FisCommand",
+				"FisQuery",
+				"FisRequest",
+				"FisResponse"
+			]
+		},
+		"FisCommandEnum": {
+			"description": "List of FIS commands, extended from Command.",
+			"type": "object",
+			"oneOf": [
+				{
+					"$ref": "#/definitions/CommandEnum"
+				},
+				{
+					"title": "FisCommand",
+					"type": "string",
+					"tsEnumNames": [
+						"Retrieve",
+						"Modify",
+						"SetColumn"
+					],
+					"enum": [
+						"Retrieve",
+						"Modify",
+						"SetColumn"
+					]
+				}
+			]
+		},
+		"FisQueryEnum": {
+			"description": "List of FIS query, extended from Query.",
+			"oneOf": [
+				{
+					"$ref": "#/definitions/QueryEnum"
+				},
+				{
+					"title": "FisQuery",
+					"type": "string",
+					"tsEnumNames": [
+						"Retrieve"
+					],
+					"enum": [
+						"Retrieve"
+					]
+				}
+			]
+		}
+	}
+}

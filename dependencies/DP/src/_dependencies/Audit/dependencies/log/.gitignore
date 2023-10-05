@@ -1,0 +1,10 @@
+log.json
+appLocation.json
+appProfile.json
+appLogLoc.json
+logLocation.json
+node_modules
+*.js
+*.js.map
+dist
+payload.json

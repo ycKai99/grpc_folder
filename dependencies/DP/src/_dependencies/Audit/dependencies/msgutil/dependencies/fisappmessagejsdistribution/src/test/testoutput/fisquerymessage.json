@@ -1,0 +1,68 @@
+{
+  "header": {
+    "messageType": "FisQuery",
+    "messageID": "e51c1914-5cb4-4c8b-a2c0-058c3f888f5b",
+    "messageName": "App Request Message",
+    "dateCreated": "2020-08-11T05:38:56.281Z",
+    "isAggregate": false,
+    "messageProducerInformation": {
+      "origin": {
+        "userApplication": {
+          "userAppId": "",
+          "userAppName": ""
+        },
+        "appArchitectureTiers": "FisApplicationServer",
+        "messageFactoryType": "MessageCreator",
+        "programID": "",
+        "programName": ""
+      },
+      "components": "Presentation"
+    },
+    "security": {
+      "applicationLogInID": "",
+      "applicationUserName": "",
+      "socialNetworkUserName": "",
+      "ucpId": ""
+    },
+    "messageDataLocation": {
+      "accessId": "",
+      "accessPassword": "",
+      "fileName": "",
+      "isEmbaded": false
+    },
+    "messageDataFormat": {
+      "dataFormat": "Json",
+      "fileFormat": "Text",
+      "mediaType": "Text",
+      "schemaType": "GraphQl"
+    },
+    "requestExecutionMode": 0,
+    "responseRequirement": {
+      "responseDeliveryMode": {
+        "channelId": "",
+        "timing": "Interactive"
+      },
+      "externalResponseLocation": {
+        "accessId": "",
+        "accessPassword": "",
+        "fileName": "",
+        "isEmbaded": false
+      },
+      "responseDataFormat": {
+        "dataFormat": "Json",
+        "fileFormat": "Text",
+        "mediaType": "Text",
+        "schemaType": "GraphQl"
+      }
+    },
+    "resquestTimeOut": 0,
+    "fisMessageHeader": {
+      "instanceId": "",
+      "serviceId": "",
+      "userId": "",
+      "dataSourceTiming": ""
+    },
+    "query": "Retrieve"
+  },
+  "data": {}
+}

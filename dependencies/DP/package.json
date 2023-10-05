@@ -1,0 +1,58 @@
+{
+  "name": "domainproxy",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nest start",
+    "start:dev": "nest start --watch",
+    "start:debug": "nest start --debug --watch",
+    "test": "node dist/_test/test.js",
+    "test1": "node dist/src/_test/testcase1.js",
+    "test2": "node dist/src/_test/testcase2.js",
+    "test3": "node dist/src/_test/testcase3.js",
+    "test4": "node dist/src/_test/testcase4.js",
+    "test5": "node dist/src/_test/testcase5.js",
+    "test6": "node dist/src/_test/testcase6.js",
+    "grpc": "node dist/src/_test/grpc.js",
+    "prebuild": "rimraf dist",
+    "build": "nest build && npm run copyGrpc",
+    "copyGrpc": "@powershell copy -Recurse -Force './src/MessageDelivery/MessageTransmission/grpc/_behaviour/utility' './dist/src/MessageDelivery/MessageTransmission/grpc/_behaviour'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://swopt.com:3000/FAMBL/DomainProxy.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/rfdc": "^1.1.0",
+    "@types/socket.io-client": "^3.0.0",
+    "@types/uuid": "^8.3.4"
+  },
+  "dependencies": {
+    "@grpc/grpc-js": "^1.7.1",
+    "@grpc/proto-loader": "^0.7.3",
+    "@improbable-eng/grpc-web": "^0.15.0",
+    "@nestjs/axios": "0.0.8",
+    "@nestjs/common": "^8.4.7",
+    "@nestjs/core": "^8.4.7",
+    "@nestjs/microservices": "^8.4.7",
+    "@nestjs/platform-express": "^8.2.4",
+    "axios": "^0.27.2",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.1",
+    "google-protobuf": "^3.14.0",
+    "grpc": "^1.24.11",
+    "jsonschema": "^1.4.1",
+    "mongoose": "^7.4.2",
+    "reflect-metadata": "^0.1.13",
+    "rfdc": "^1.3.0",
+    "rimraf": "^3.0.2",
+    "rxjs": "^7.5.6",
+    "socket.io-client": "^2.4.0",
+    "source-map-support": "^0.5.21",
+    "tsc": "^2.0.4",
+    "uuid": "^8.3.2"
+  }
+}

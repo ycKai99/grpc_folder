@@ -1,0 +1,20 @@
+{
+    "messageType": "Command",
+    "messageName": "Test message",
+    "isAggregate": false,
+    "security": {
+        "ucpId": "ucp123",
+        "applicationLogInID": "FIS",
+        "applicationUserName": "FIS"
+    },
+    "producer": {
+        "type": "UI",
+        "origin": {
+            "userApplication": {
+                "userAppId": "FIS",
+                "userAppName": "FIS"
+            }
+        }
+    },
+    "data": {}
+}

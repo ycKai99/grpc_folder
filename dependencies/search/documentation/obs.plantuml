@@ -1,0 +1,12 @@
+@startuml DIAGRAM
+participant Producer
+participant Consumer 
+participant Callback_Queue
+participant Callback_Stack
+
+Producer <-- Consumer: Subscribe
+Producer --> Consumer: Next()
+Consumer --> Callback_Queue: Add to queue
+Callback_Queue --> Callback_Stack: Remove from queue \nwhen corresponding \nfunctions are called
+@enduml
+ 

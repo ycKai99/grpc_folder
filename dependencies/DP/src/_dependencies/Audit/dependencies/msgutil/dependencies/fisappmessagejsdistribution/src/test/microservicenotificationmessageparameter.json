@@ -1,0 +1,24 @@
+{
+    "messageType": "MicroserviceNotification",
+    "messageName": "Test message",
+    "isAggregate": false,
+    "security": {
+        "ucpId": "ucp123",
+        "applicationLogInID": "FIS",
+        "applicationUserName": "FIS"
+    },
+    "producer": {
+        "type": "UI",
+        "origin": {
+            "userApplication": {
+                "userAppId": "FIS",
+                "userAppName": "FIS"
+            }
+        }
+    },
+    "topicParameter": {
+        "code": "NewPerson",
+        "name": "New Person"
+    },
+    "data": {}
+}

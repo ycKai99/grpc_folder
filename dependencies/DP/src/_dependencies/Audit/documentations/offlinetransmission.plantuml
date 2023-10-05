@@ -1,0 +1,75 @@
+@startuml OfflineTranmission
+header Message OfflineTranmission
+left to right direction
+
+skinparam usecase {
+    BackgroundColor<< Publisher >> Pink
+    BorderColor<< Publisher >> Red
+    BackgroundColor<< Subscriber >> YellowGreen
+    BorderColor<< Subscriber >> Green
+    BackgroundColor<< Interrupt >> Pink
+    BorderColor<< Interrupt >> Red
+}
+
+skinparam component {
+    PublisherSite 24
+}
+
+component "PublisherSite" as PublisherSite{
+    (Parent) as (parentPub) << Publisher >>
+    usecase "**Parent**" as parentPub
+    card PublisherObservable as PublisherObs #Pink;line:Red;line.bold;text:Black
+    port "**Proxy**" as proxy1
+    database "**buffer**" as buffer
+}
+
+component SubscriberSite as SubscriberSite{
+    (Parent) as (parentSub) << Subscriber >>
+    usecase "**Parent**" as parentSub
+    card SubscriberObservable as SubscriberObs1   #YellowGreen;line:green;line.bold;text:Black
+    card SubscriberObservable as SubscriberObs2   #cyan;line:blue;line.bold;text:Black
+    port "**Proxy**" as proxy2
+    port "**Proxy**" as proxy3
+}
+
+' (X) as (interrupt) << Interrupt >>
+' usecase "X" as interrupt
+
+proxy1 *- PublisherObs #line:Red;text:Red : Publish data to \ndesignated subsriber \nover proxy
+PublisherObs --> parentPub : If internet is \ndown, NOTIFY \nparent publisher
+parentPub --> parentSub #line:blue;line.bold;text:Blue : Notify Internet \nWas Offline \nPlease Subscribe \nAgain
+' proxy1 *..* interrupt #line:Red;text:Red
+' interrupt *..* proxy2 #line:Red;text:Red
+proxy1 *.(0).> proxy2 #line:Red;text:Red : Internet Disconnected
+' destroy proxy1
+proxy1 == buffer : Store data \nin buffer should \nthe internet \nbe disconnected
+
+proxy2 -* SubscriberObs1  #line:Red;text:Red : Subscribe and \nReceive data 
+proxy3 *- SubscriberObs2 #line:Blue;text:Blue : Subcribe to Publisher \nvia new Proxxy or \nexisting Proxy
+' proxy2 *- SubscriberObs2 #line:Blue;text:Blue
+proxy1 *..* proxy3 #line:Blue;text:Blue : Subscribe to proxy \n to continue receiving \ndata
+parentSub => SubscriberObs2 #line:DarkGreen;line.bold;text:DarkGreen : Instantiate a \nnew Subscriber upon \nreceiving notification \nfrom Publisher's parent
+parentSub -> SubscriberObs1 : Persists data \nreceived from \nPublisher
+@enduml
+
+/' Briedf description
+Follow the red line first. It represents a normal flow of data/message transfer
+during an ideal situation.
+The blue lines represents when the internet is done and provides direction as to
+how the components handle the situation.
+So here, the the publisher will produce it's messages/payload to the subscriber
+using the imported library to enable remote transmission of the data via proxy.
+The same thing also for the other side, to which they will also need to use the
+same library in order to receive the transmitted data.
+
+Now, assuming the internet connection is interrupted for whatever reason, then the
+data will then be stored in the the buffer so to speak or whatever that the publisher
+wants to deal with it. The parent component will then keep track of the records
+and send it's notification to the subscriber's parents once the internet is back
+online. Meanwhile, there would be, ideally speaking, internal mechanism to deal
+with the ongoing data transmission that is occuring at the publisher's site.
+So, when the internet connection is back online, and upon receiving the notification
+from the parent of the publisher's site, it would then instantaite a new subcriber
+to subscribe to the previously subscribed publisher, and continue to receive the
+stream data. The publisher will of course stream the buffered data that failed to
+transmit to the relevant party.'/

@@ -1,0 +1,14 @@
+{
+    "module": [
+        {
+            "alias": "FisSubscription",
+            "module": "../test/testmodule",
+            "objectName": "Subscription"
+        },
+        {
+            "alias": "FisMicroserviceNotification",
+            "module": "../test/testmodule",
+            "objectName": "MicroserviceNotification"
+        }
+    ]
+}

@@ -1,0 +1,6 @@
+[submodule "dependencies/log"]
+	path = dependencies/log
+	url = https://swopt.com:3000/FAMBL/Fis-LoggingService.git
+[submodule "dependencies/msgutil"]
+	path = dependencies/msgutil
+	url = https://swopt.com:3000/FAMBL/FISAppMessageJSUtility.git
