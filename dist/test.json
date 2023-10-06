@@ -1,0 +1,92 @@
+{
+    "header": {
+        "messageType": "Request",
+        "messageID": "95a1d52e-3923-4038-b01d-13dafaa42417",
+        "messageName": "Subscription",
+        "dateCreated": "2023-09-25T08:14:55.428Z",
+        "isAggregate": false,
+        "dataSourceTiming": "",
+        "serviceId": "",
+        "userId": "",
+        "requesterId": "Generatedfcf7630a-d4c4-4a15-a8bd-da5e51bc9445",
+        "messageProducerInformation": {
+            "origin": {
+                "userApplication": {
+                    "userAppId": "9558bfb4-e1ab-4967-ae9d-ca199ff2b9ad",
+                    "userAppName": "FIS Handler"
+                }
+            },
+            "components": "BackOfficeApplication"
+        },
+        "security": {
+            "ucpId": "abc"
+        },
+        "messageDataLocation": {
+            "isEmbaded": true
+        },
+        "messageDataFormat": {
+            "dataFormat": "Json"
+        },
+        "requestExecutionMode": 0,
+        "resquestTimeOut": 0,
+        "subscription": "General"
+    },
+    "data": {
+        "action": "subscribe",
+        "query": {
+            "FisCommands": {
+                "__args": {
+                    "where": {
+                        "category": "notification"
+                    }
+                }
+            }
+        },
+        "uiMessage": {
+            "header": {
+                "messageType": "Subscription",
+                "messageID": "e8851a64-c982-42a2-b7a4-1b6fe9923cf6",
+                "messageName": "Subscription",
+                "dateCreated": "2023-09-25T08:14:55.405Z",
+                "isAggregate": false,
+                "dataSourceTiming": "",
+                "serviceId": "",
+                "userId": "",
+                "requesterId": "Generated70dc39dd-9c93-44ce-86ed-fb8b47d1f398",
+                "messageProducerInformation": {
+                    "origin": {
+                        "userApplication": {
+                            "userAppId": "Observer Application",
+                            "userAppName": "Client"
+                        }
+                    },
+                    "components": "Presentation"
+                },
+                "security": {
+                    "ucpId": "abc"
+                },
+                "messageDataLocation": {
+                    "isEmbaded": true
+                },
+                "messageDataFormat": {
+                    "dataFormat": "Json"
+                },
+                "requestExecutionMode": 0,
+                "resquestTimeOut": 0,
+                "subscription": "General"
+            },
+            "data": {
+                "action": "subscribe",
+                "query": {
+                    "FisCommands": {
+                        "__args": {
+                            "where": {
+                                "category": "notification"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

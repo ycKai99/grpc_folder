@@ -1,18 +1,23 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const common_1 = require("@nestjs/common");
 const core_1 = require("@nestjs/core");
-const app_module_1 = require("./app.module");
-const dotenv = require("dotenv");
+const observer_module_1 = require("./observer.module");
+const session = require("express-session");
 const bodyParser = require('body-parser');
-dotenv.config();
+require('dotenv').config();
+const port = process.env.PORT_SERVER;
 async function bootstrap() {
-    const app = await core_1.NestFactory.create(app_module_1.AppModule);
-    app.useGlobalPipes(new common_1.ValidationPipe());
+    const app = await core_1.NestFactory.create(observer_module_1.ObserverModule);
     app.use(bodyParser.json({ limit: '50mb' }));
     app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
-    await app.listen(process.env.PORT_SERVER);
-    console.log(`Application is running on: ${await app.getUrl()}`);
+    app.use(session({
+        secret: 'fisobserver-secret-key',
+        resave: false,
+        saveUninitialized: false
+    }));
+    await app.listen(port);
+    // const testCase4 = testing4();
+    console.log("Server started at " + port + ".");
 }
 bootstrap();
 //# sourceMappingURL=main.js.map

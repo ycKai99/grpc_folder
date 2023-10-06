@@ -1,0 +1,80 @@
+/// <reference types="node" />
+import { HandlerParametersInterface, process_status_type } from ".././_interface/process_parameters";
+import { handler_interface } from "../_interface/handler_interface";
+import { HandlersManager } from "../handlers_manager";
+import { Channels } from "../observer.constants";
+import { Subscription, Subject } from "rxjs";
+import { FisCreateMessageUtility, ServiceProviderData, NotificationMessage, Command, ResponseMessage, ServiceProviderCredentials, Query } from "../_dependencies/DP/src/interface/export";
+import { DomainProxyController } from "../_dependencies/DP/src/services/DP.controller";
+export { process_status_type, HandlerParametersInterface as process_parameters_interface } from ".././_interface/process_parameters";
+export { handler_interface } from "../_interface/handler_interface";
+export declare class base_notification_handler_class implements handler_interface {
+    private UUID;
+    class_name: string;
+    Tag: string;
+    handlers: Record<string | number, HandlerParametersInterface>;
+    UserAppId: string;
+    UCP_Id: string;
+    previous_UCP_Id: string;
+    private loginPromise;
+    DefaultDomainProxyService: DomainProxyController;
+    MessageService: FisCreateMessageUtility;
+    protected process_status: string;
+    private notificationManager;
+    private remoteNotificationSubscriptions;
+    protected localServiceProvidersList: ServiceProviderData[];
+    protected instanceId: string;
+    protected errorSinkObservable: Subject<any>;
+    protected liveSubsription: Subscription[];
+    private DP;
+    protected restart_count: number;
+    protected resetLiveSubscription(): void;
+    protected timeoutID: NodeJS.Timeout;
+    protected app: string;
+    protected dpWaitMinutes: any;
+    getUUID(): string;
+    getClassName(): string;
+    maintainConnection(): void;
+    subscribeForConnectionError(inputObservable: Subject<any>): Subject<unknown>;
+    setLocalServiceProvidersList(provider: ServiceProviderData[]): void;
+    getLocalServiceProvidersList(): ServiceProviderData[];
+    getUCPId(): string;
+    setUCPId(UCP_Id: any): void;
+    resetUCPId(): void;
+    initialise(UserAppId: string, remoteDP: DomainProxyController, notificationManager: HandlersManager): Promise<string>;
+    add_handler(handler_id: string | number, notification_message: NotificationMessage, handler_type_name: string, tag: string): Promise<void>;
+    create_message(handler_ind: number | string, processname: Command | Query, payload: any): number;
+    updateMessagesLocalStorage(callbackhandler?: (a: string) => void): void;
+    loadMessagesLocalStorage(): Promise<void>;
+    perform_handler(handler_id: number): Promise<number>;
+    get_taskID(handler_id: number): string;
+    send_message(handler_id: number, steps_id: number, appName?: string): Promise<ResponseMessage>;
+    perform_send_login_messages(appName?: string, DataSource?: string, isStream?: boolean, target?: string, serviceProviderData?: ServiceProviderCredentials): Promise<string>;
+    perform_send_logout_messages(appName: string, UCP_Id: string): Promise<string>;
+    perform_subcription_with_login(callbackObject: HandlersManager): void;
+    set_process_status(handler_ind: any, process_status: process_status_type | string): HandlerParametersInterface;
+    gethandler(handler_ind: number): HandlerParametersInterface;
+    check_message(newNotification: NotificationMessage): boolean;
+    run_process(handler_id: number): Promise<number>;
+    LogMessage(message: string): void;
+    find_handler_id(task_id: string): number;
+    channels: typeof Channels;
+    publishFor1st(inputObservable: Subject<any>): Subject<unknown>;
+    trigger_test_message(testobservable: Subject<any>): void;
+    subscribeForOperationA(inputObservable: Subject<any>): Subject<unknown>;
+    subscribeForOperationB(inputObservable: Subject<any>): Subject<unknown>;
+    subscribeForOperationC(inputObservable: Subject<any>): Subject<unknown>;
+    checkIsCurrentObject(msg: any): boolean;
+    /**TEST PART 01 END */
+    /**TEST PART 02 */
+    constructor();
+    protected getDomainProxy(): DomainProxyController;
+    private getDefaultDomainProxy;
+    protected attemptToLogout(ucpId: any): void;
+    getHandlersArray(): HandlerParametersInterface[];
+}
+export interface ErrorObjectInterface {
+    ObjectID: string;
+    ObjectTypeCode: string;
+    ErrorCode: "ConnectionDown";
+}

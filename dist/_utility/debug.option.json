@@ -1,0 +1,9 @@
+{
+    "debug": {
+        "enabled": true,
+        "log": {
+            "GeneralMessage": true,
+            "SaveMessage": false
+        }
+    }
+}

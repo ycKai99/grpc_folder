@@ -1,0 +1,42 @@
+{
+    "message": {
+        "schema": {
+            "definitionPath": "schema/FisAppMessageSchema.json",
+            "validate": {
+                "disableFormat": false
+            }
+        },
+        "module": {
+            "module": [
+                "../fis/fismessages"
+            ]
+        },
+        "header": {
+            "module": {
+                "module": [
+                    "../fis/fismessageheaders"
+                ]
+            }
+        },
+        "producer": {
+            "module": {
+                "module": []
+            }
+        },
+        "responseMessage": {
+            "respondToMessage": {}
+        },
+        "topic": {
+            "module": {
+                "module": []
+            }
+        },
+        "transformer": {
+            "module": {
+                "module": [
+                    "../transform/fis/fistransformers"
+                ]
+            }
+        }
+    }
+}

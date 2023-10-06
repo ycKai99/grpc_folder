@@ -1,0 +1,1 @@
+{"version":3,"file":"getPersonNameList.js","sourceRoot":"","sources":["../../../src/fingerprint/_utility/getPersonNameList.ts"],"names":[],"mappings":";;;AAAA,SAAgB,iBAAiB,CAAC,kBAAkB;IAClD,yDAAyD;IACzD,IAAI,cAAwB,CAAC;IAC7B,cAAc,GAAG,kBAAkB,CAAC,GAAG,CAAC,CAAC,MAAM,EAAE,EAAE,CAAC,MAAM,CAAC,SAAS,CAAC,CAAC;IACtE,OAAO,cAAc,CAAC;AACxB,CAAC;AALD,8CAKC"}
